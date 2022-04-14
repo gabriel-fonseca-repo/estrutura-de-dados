@@ -2,33 +2,6 @@ package br.fonseca.ED.estruturas;
 
 public class LinkedList {
 
-	public static void main(String[] args) {
-		LinkedList lista = new LinkedList();
-
-		lista.adicionar(17);
-		lista.adicionar(13);
-		lista.adicionar(12);
-		lista.adicionar(45);
-		lista.adicionar(65);
-		lista.adicionar(0);
-		lista.adicionar(99);
-
-		lista.adicionarInicio(999);
-
-		System.out.print(lista);
-		System.out.println();
-
-		lista.eliminarPrimeiro();
-
-		System.out.print(lista);
-		System.out.println();
-
-		System.out.println(lista.imprimirEsquerdaDireita());
-		System.out.println();
-
-		lista.imprimirListaAoContrario();
-	}
-
 	private int qtdElementos = 0;
 
 	private boolean primeiraPosicao;
@@ -40,22 +13,96 @@ public class LinkedList {
 		this.primeiraPosicao = true;
 	}
 
-	public void adicionar(Object conteudo) {
-		Node novaCelula = new Node(null, conteudo);
-		if (isPrimeiraPosicao()) {
-			this.setPrimeiro(novaCelula);
-			this.setUltimo(novaCelula);
-			this.setPrimeiraPosicao(false);
-		} else {
-			this.ultimo.setProximo(novaCelula);
-			this.ultimo = novaCelula;
+	public void adicionar(Object... conteudo) {
+		for (Object obj : conteudo) {
+			Node novaCelula = new Node(null, obj);
+			if (isPrimeiraPosicao()) {
+				this.setPrimeiro(novaCelula);
+				this.setUltimo(novaCelula);
+				this.setPrimeiraPosicao(false);
+			} else {
+				this.ultimo.setProximo(novaCelula);
+				this.ultimo = novaCelula;
+			}
+			this.qtdElementos++;
 		}
-		this.qtdElementos++;
 	}
 
-	public void adicionarInicio(Object conteudo) {
+	public void adicionar(Object conteudo, int index) {
+		if (index <= 0) {
+			adicionarInicio(conteudo);
+			return;
+		}
+
+		if (index >= this.getQtdElementos()) {
+			adicionarFinal(conteudo);
+			return;
+		}
+
+		Node aux = this.primeiro;
+		int contador;
+
+		for (contador = 1; contador < index && aux != null; contador++) {
+			aux = aux.getProximo();
+		}
+
+		if (aux == null) {
+			adicionarFinal(conteudo);
+		} else {
+			Node novaCelula = new Node(aux.getProximo(), conteudo);
+			aux.setProximo(novaCelula);
+		}
+	}
+
+	private void adicionarInicio(Object conteudo) {
 		Node novaCelula = new Node(primeiro, conteudo);
 		this.primeiro = novaCelula;
+	}
+
+	private void adicionarFinal(Object conteudo) {
+		Node novaCelula = new Node(null, conteudo);
+		this.ultimo.setProximo(novaCelula);
+		this.ultimo = novaCelula;
+	}
+
+	public void remover(int index) {
+		if (index <= 0) {
+			removerInicio();
+			return;
+		}
+		if (index >= this.getQtdElementos()) {
+			removerFinal();
+			return;
+		}
+
+		Node aux = this.primeiro;
+		Node removido = aux;
+		int contador;
+
+		for (contador = 1; contador <= index && aux != null; contador++) {
+			aux = removido;
+			removido = removido.getProximo();
+		}
+
+		if (removido == null) {
+			removerFinal();
+		} else {
+			aux.setProximo(removido.getProximo());
+		}
+	}
+
+	private void removerFinal() {
+		Node aux = this.getPrimeiro();
+		Node removido = aux;
+		while (removido.getProximo() != null) {
+			aux = removido;
+			removido = removido.getProximo();
+		}
+		aux.setProximo(null);
+	}
+
+	private void removerInicio() {
+		this.primeiro = this.getPrimeiro().getProximo();
 	}
 
 	public void eliminarPrimeiro() {
@@ -119,7 +166,7 @@ public class LinkedList {
 		Node aux = this.getPrimeiro();
 		int i = 0;
 		while (aux != null) {
-			str.append("INDEX: " + i + " CELULA: " + aux + "\n");
+			str.append("INDEX: " + i + " CONTEUDO: " + aux + "\n");
 			i++;
 			aux = aux.getProximo();
 		}
@@ -129,45 +176,16 @@ public class LinkedList {
 	public String imprimirEsquerdaDireita() {
 		StringBuilder str = new StringBuilder("");
 		Node aux = this.getPrimeiro();
+
+		str.append(aux);
+		aux = aux.getProximo();
+
 		while (aux != null) {
-			str.append(aux + ", ");
+			str.append(", " + aux);
 			aux = aux.getProximo();
 		}
-		str.replace(str.toString().length() - 2, str.toString().length(), "");
+
 		return str.toString();
-	}
-
-}
-
-class Node {
-
-	private Node proximo;
-	private Object conteudo;
-
-	public Node(Node proximo, Object conteudo) {
-		this.proximo = proximo;
-		this.conteudo = conteudo;
-	}
-
-	public Node getProximo() {
-		return proximo;
-	}
-
-	public void setProximo(Node proximo) {
-		this.proximo = proximo;
-	}
-
-	public Object getConteudo() {
-		return conteudo;
-	}
-
-	public void setConteudo(Object conteudo) {
-		this.conteudo = conteudo;
-	}
-
-	@Override
-	public String toString() {
-		return this.getConteudo().toString();
 	}
 
 }
