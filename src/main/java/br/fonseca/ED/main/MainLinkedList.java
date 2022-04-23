@@ -1,10 +1,10 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.LinkedList;
+import br.fonseca.ED.estruturas.ListaDinamica;
 
 public class MainLinkedList {
 	public static void main(String[] args) {
-		LinkedList lista = new LinkedList();
+		ListaDinamica lista = new ListaDinamica();
 
 		System.out.println("Testando adicicao de itens normais");
 		lista.adicionar(17);

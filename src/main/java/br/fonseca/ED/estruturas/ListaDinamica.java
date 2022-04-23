@@ -1,6 +1,6 @@
 package br.fonseca.ED.estruturas;
 
-public class LinkedList {
+public class ListaDinamica {
 
 	private int qtdElementos;
 
@@ -9,7 +9,7 @@ public class LinkedList {
 	private Node primeiro;
 	private Node ultimo;
 
-	public LinkedList() {
+	public ListaDinamica() {
 		this.primeiraPosicao = true;
 		this.qtdElementos = 0;
 	}
