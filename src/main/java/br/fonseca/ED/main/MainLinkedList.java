@@ -6,7 +6,7 @@ public class MainLinkedList {
 	public static void main(String[] args) {
 		LinkedList lista = new LinkedList();
 
-		System.out.println("Testando adicição de itens normais");
+		System.out.println("Testando adicicao de itens normais");
 		lista.adicionar(17);
 		lista.adicionar(13);
 		lista.adicionar(12);
@@ -18,40 +18,55 @@ public class MainLinkedList {
 		System.out.print(lista);
 		System.out.println();
 
-		System.out.println("Testando remoção do primeiro item");
+		System.out.println("Testando remocao do primeiro item");
 		lista.eliminarPrimeiro();
 		System.out.print(lista);
 		System.out.println();
 
-		System.out.println("Testando impressão da esquerda pra direita");
+		System.out.println("Testando impressao da esquerda pra direita");
 		System.out.println(lista.imprimirEsquerdaDireita());
 		System.out.println();
 
-		System.out.println("Imprimindo a lista ao contrário");
+		System.out.println("Imprimindo a lista ao contrario");
 		lista.imprimirListaAoContrario();
 
-		System.out.println("Testando adição de itens com índice");
+		System.out.println("Testando adicao de itens com indice");
 		lista.adicionar(2000, 4);
 		lista.adicionar(2001, -1);
 		lista.adicionar(2002, 0);
 		lista.adicionar(2003, 198237123);
 		System.out.println(lista);
 
-		System.out.println("Testando adição de múltiplos itens");
+		System.out.println("Testando adicao de multiplos itens");
 		lista.adicionar(123123, 123123, 1, 23232);
 		System.out.println(lista);
 
-		System.out.println("Testando remoção de itens nos extremos da lista");
+		System.out.println("Testando remocao de itens nos extremos da lista");
 		lista.remover(0);
 		lista.remover(-2);
 		lista.remover(-3);
 		lista.remover(123123);
 		System.out.println(lista);
 
-		System.out.println("Testando remoção de itens no meio da lista");
+		System.out.println("Testando remocao de itens no meio da lista");
 		lista.remover(3);
 		lista.remover(5);
 		System.out.println(lista);
+
+		System.out.println("Testando metodos de achar o ultimo e penultimo");
+		System.out.println("Penultimo elemento: " + lista.acharPenultimo());
+		System.out.println("Ultimo elemento: " + lista.acharUltimo());
+
+		System.out.println("Testando metodos de inversao de lista referencialmente");
+		lista.inverterLista();
+		System.out.println(lista);
+
+		System.out.println("Testando metodos para verificacao de itens repetidos");
+		System.out.println(lista);
+		System.out.println(lista.repetidos() + "\n");
+		lista.remover(2);
+		System.out.println(lista);
+		System.out.println(lista.repetidos());
 
 	}
 }

@@ -2,7 +2,7 @@ package br.fonseca.ED.estruturas;
 
 public class LinkedList {
 
-	private int qtdElementos = 0;
+	private int qtdElementos;
 
 	private boolean primeiraPosicao;
 
@@ -11,6 +11,7 @@ public class LinkedList {
 
 	public LinkedList() {
 		this.primeiraPosicao = true;
+		this.qtdElementos = 0;
 	}
 
 	public void adicionar(Object... conteudo) {
@@ -28,41 +29,67 @@ public class LinkedList {
 		}
 	}
 
+	public Node achar(int index) {
+		if (index <= 0) {
+			return this.getPrimeiro();
+		}
+		if (index >= this.getQtdElementos()) {
+			return this.getUltimo();
+		}
+
+		Node aux = this.getPrimeiro();
+		int i = 0;
+
+		while (aux != null && i < index) {
+			aux = aux.getProximo();
+			i++;
+		}
+
+		return aux;
+	}
+
+	public Object acharPenultimo() {
+		return this.achar(this.getQtdElementos() - 2);
+	}
+
+	public Object acharUltimo() {
+		return this.achar(this.getQtdElementos() - 1);
+	}
+
 	public void adicionar(Object conteudo, int index) {
 		if (index <= 0) {
 			adicionarInicio(conteudo);
 			return;
 		}
-
 		if (index >= this.getQtdElementos()) {
 			adicionarFinal(conteudo);
 			return;
 		}
-
 		Node aux = this.primeiro;
 		int contador;
-
 		for (contador = 1; contador < index && aux != null; contador++) {
 			aux = aux.getProximo();
 		}
-
 		if (aux == null) {
 			adicionarFinal(conteudo);
 		} else {
 			Node novaCelula = new Node(aux.getProximo(), conteudo);
 			aux.setProximo(novaCelula);
+			this.qtdElementos++;
 		}
 	}
 
 	private void adicionarInicio(Object conteudo) {
 		Node novaCelula = new Node(primeiro, conteudo);
 		this.primeiro = novaCelula;
+		this.qtdElementos++;
 	}
 
 	private void adicionarFinal(Object conteudo) {
 		Node novaCelula = new Node(null, conteudo);
 		this.ultimo.setProximo(novaCelula);
 		this.ultimo = novaCelula;
+		this.qtdElementos++;
 	}
 
 	public void remover(int index) {
@@ -88,6 +115,7 @@ public class LinkedList {
 			removerFinal();
 		} else {
 			aux.setProximo(removido.getProximo());
+			this.qtdElementos--;
 		}
 	}
 
@@ -99,20 +127,43 @@ public class LinkedList {
 			removido = removido.getProximo();
 		}
 		aux.setProximo(null);
+		this.setUltimo(aux);
+		this.qtdElementos--;
 	}
 
 	private void removerInicio() {
 		this.primeiro = this.getPrimeiro().getProximo();
+		this.qtdElementos--;
 	}
 
 	public void eliminarPrimeiro() {
 		this.primeiro = this.primeiro.getProximo();
+		this.qtdElementos--;
+	}
+
+	public boolean repetidos() {
+		Node aux = this.getPrimeiro();
+
+		while (aux.getProximo() != null) {
+
+			Node aux2 = aux.getProximo();
+
+			while (aux2 != null) {
+				if (aux.getConteudo().equals(aux2.getConteudo())) {
+					return true;
+				}
+				aux2 = aux2.getProximo();
+			}
+			aux = aux.getProximo();
+		}
+		return false;
 	}
 
 	public void inverterLista() {
 		Node anterior = null;
 		Node atual = this.getPrimeiro();
 		Node proxima = null;
+		this.setUltimo(atual);
 		while (atual != null) {
 			proxima = atual.getProximo();
 			atual.setProximo(anterior);
@@ -127,6 +178,39 @@ public class LinkedList {
 		System.out.println(this);
 		this.inverterLista();
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder str = new StringBuilder("");
+		Node aux = this.getPrimeiro();
+		int i = 0;
+		while (aux != null) {
+			str.append("INDEX: " + i + " CONTEUDO: " + aux + "\n");
+			i++;
+			aux = aux.getProximo();
+		}
+		str.append("QTD DE ELEMENTOS: " + this.qtdElementos + "\n");
+		str.append("Primeiro elemento: " + this.getPrimeiro() + "\n");
+		str.append("Ultimo elemento: " + this.getUltimo() + "\n");
+		return str.toString();
+	}
+
+	public String imprimirEsquerdaDireita() {
+		StringBuilder str = new StringBuilder("");
+		Node aux = this.getPrimeiro();
+
+		str.append(aux);
+		aux = aux.getProximo();
+
+		while (aux != null) {
+			str.append(", " + aux);
+			aux = aux.getProximo();
+		}
+
+		return str.toString();
+	}
+
+	/* Getters and setters */
 
 	private boolean isPrimeiraPosicao() {
 		return primeiraPosicao;
@@ -154,38 +238,6 @@ public class LinkedList {
 
 	private int getQtdElementos() {
 		return qtdElementos;
-	}
-
-	private void setQtdElementos(int qtdElementos) {
-		this.qtdElementos = qtdElementos;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder str = new StringBuilder("");
-		Node aux = this.getPrimeiro();
-		int i = 0;
-		while (aux != null) {
-			str.append("INDEX: " + i + " CONTEUDO: " + aux + "\n");
-			i++;
-			aux = aux.getProximo();
-		}
-		return str.toString();
-	}
-
-	public String imprimirEsquerdaDireita() {
-		StringBuilder str = new StringBuilder("");
-		Node aux = this.getPrimeiro();
-
-		str.append(aux);
-		aux = aux.getProximo();
-
-		while (aux != null) {
-			str.append(", " + aux);
-			aux = aux.getProximo();
-		}
-
-		return str.toString();
 	}
 
 }
