@@ -49,6 +49,19 @@ public class ListaDinamicaDE {
 		return aux;
 	}
 
+	public Object acharPorObjeto(Object obj) {
+		NodeDE aux = this.getPrimeiro();
+		int index = 1;
+		while (aux != null) {
+			if (aux.getConteudo().equals(obj)) {
+				return index;
+			}
+			index++;
+			aux = aux.getProximo();
+		}
+		return -1;
+	}
+
 	public Object acharPenultimo() {
 		return this.achar(this.getQtdElementos() - 2);
 	}
@@ -144,6 +157,10 @@ public class ListaDinamicaDE {
 		this.setPrimeiro(this.getPrimeiro().getProximo());
 		this.getPrimeiro().setAnterior(null);
 		this.qtdElementos--;
+	}
+
+	public void removerMeio() {
+		this.remover(this.getQtdElementos() / 2);
 	}
 
 	public boolean repetidos() {

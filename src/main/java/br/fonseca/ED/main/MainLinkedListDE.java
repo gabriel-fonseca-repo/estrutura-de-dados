@@ -6,6 +6,21 @@ public class MainLinkedListDE {
 	public static void main(String[] args) {
 		ListaDinamicaDE lista = new ListaDinamicaDE();
 
+		lista.adicionar(1);
+		lista.adicionar(2);
+		lista.adicionar(3);
+		lista.adicionar(4);
+		lista.adicionar(5);
+
+		System.out.println("Testando procura por objeto pelo indice");
+		System.out.println(lista.acharPorObjeto(5));
+		System.out.println();
+
+		System.out.println("Testando remocao do meio");
+		lista.removerMeio();
+		System.out.println(lista);
+		System.out.println();
+
 		System.out.println("Testando adicicao de itens normais");
 		lista.adicionar(17);
 		lista.adicionar(13);
@@ -69,6 +84,8 @@ public class MainLinkedListDE {
 		System.out.println(lista);
 		System.out.println(lista.repetidos());
 		System.out.println();
+
+		lista.adicionar(23);
 
 	}
 }
