@@ -1,20 +1,22 @@
 package br.fonseca.ED.estruturas;
 
-class Node {
+class NodeDE {
 
-	private Node proximo;
+	private NodeDE anterior;
+	private NodeDE proximo;
 	private Object conteudo;
 
-	public Node(Node proximo, Object conteudo) {
+	public NodeDE(NodeDE anterior, NodeDE proximo, Object conteudo) {
+		this.anterior = anterior;
 		this.proximo = proximo;
 		this.conteudo = conteudo;
 	}
 
-	public Node getProximo() {
+	public NodeDE getProximo() {
 		return this.proximo;
 	}
 
-	public void setProximo(Node proximo) {
+	public void setProximo(NodeDE proximo) {
 		this.proximo = proximo;
 	}
 
@@ -34,7 +36,7 @@ class Node {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Node other = (Node) obj;
+		NodeDE other = (NodeDE) obj;
 		if (conteudo == null) {
 			if (other.conteudo != null)
 				return false;
@@ -51,6 +53,14 @@ class Node {
 	@Override
 	public String toString() {
 		return this.getConteudo().toString();
+	}
+
+	public NodeDE getAnterior() {
+		return anterior;
+	}
+
+	public void setAnterior(NodeDE anterior) {
+		this.anterior = anterior;
 	}
 
 }

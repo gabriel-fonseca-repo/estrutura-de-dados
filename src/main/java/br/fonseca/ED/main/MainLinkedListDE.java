@@ -1,10 +1,10 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.ListaDinamica;
+import br.fonseca.ED.estruturas.ListaDinamicaDE;
 
-public class MainLinkedList {
+public class MainLinkedListDE {
 	public static void main(String[] args) {
-		ListaDinamica lista = new ListaDinamica();
+		ListaDinamicaDE lista = new ListaDinamicaDE();
 
 		System.out.println("Testando adicicao de itens normais");
 		lista.adicionar(17);
@@ -56,6 +56,7 @@ public class MainLinkedList {
 		System.out.println("Testando metodos de achar o ultimo e penultimo");
 		System.out.println("Penultimo elemento: " + lista.acharPenultimo());
 		System.out.println("Ultimo elemento: " + lista.acharUltimo());
+		System.out.println();
 
 		System.out.println("Testando metodos de inversao de lista referencialmente");
 		lista.inverterLista();
@@ -67,6 +68,7 @@ public class MainLinkedList {
 		lista.remover(2);
 		System.out.println(lista);
 		System.out.println(lista.repetidos());
+		System.out.println();
 
 	}
 }

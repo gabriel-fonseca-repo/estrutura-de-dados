@@ -1,35 +1,36 @@
 package br.fonseca.ED.estruturas;
 
-public class ListaDinamica {
+public class ListaDinamicaDE {
 
 	private int qtdElementos;
 
 	private boolean primeiraPosicao;
 
-	private Node primeiro;
-	private Node ultimo;
+	private NodeDE primeiro;
+	private NodeDE ultimo;
 
-	public ListaDinamica() {
+	public ListaDinamicaDE() {
 		this.primeiraPosicao = true;
 		this.qtdElementos = 0;
 	}
 
 	public void adicionar(Object... conteudo) {
 		for (Object obj : conteudo) {
-			Node novaCelula = new Node(null, obj);
+			NodeDE novaCelula = new NodeDE(null, null, obj);
 			if (isPrimeiraPosicao()) {
 				this.setPrimeiro(novaCelula);
 				this.setUltimo(novaCelula);
 				this.setPrimeiraPosicao(false);
 			} else {
-				this.ultimo.setProximo(novaCelula);
-				this.ultimo = novaCelula;
+				this.getUltimo().setProximo(novaCelula);
+				novaCelula.setAnterior(this.getUltimo());
+				this.setUltimo(novaCelula);
 			}
 			this.qtdElementos++;
 		}
 	}
 
-	public Node achar(int index) {
+	public NodeDE achar(int index) {
 		if (index <= 0) {
 			return this.getPrimeiro();
 		}
@@ -37,7 +38,7 @@ public class ListaDinamica {
 			return this.getUltimo();
 		}
 
-		Node aux = this.getPrimeiro();
+		NodeDE aux = this.getPrimeiro();
 		int i = 0;
 
 		while (aux != null && i < index) {
@@ -65,30 +66,31 @@ public class ListaDinamica {
 			adicionarFinal(conteudo);
 			return;
 		}
-		Node aux = this.primeiro;
-		int contador;
-		for (contador = 1; contador < index && aux != null; contador++) {
+		NodeDE aux = this.primeiro;
+		for (int contador = 1; contador < index && aux != null; contador++) {
 			aux = aux.getProximo();
 		}
 		if (aux == null) {
 			adicionarFinal(conteudo);
 		} else {
-			Node novaCelula = new Node(aux.getProximo(), conteudo);
-			aux.setProximo(novaCelula);
+			NodeDE novaCelula = new NodeDE(aux.getAnterior(), aux, conteudo);
+			aux.getAnterior().setProximo(novaCelula);
+			aux.setAnterior(novaCelula);
 			this.qtdElementos++;
 		}
 	}
 
 	private void adicionarInicio(Object conteudo) {
-		Node novaCelula = new Node(primeiro, conteudo);
-		this.primeiro = novaCelula;
+		NodeDE novaCelula = new NodeDE(null, this.getPrimeiro(), conteudo);
+		this.getPrimeiro().setAnterior(novaCelula);
+		this.setPrimeiro(novaCelula);
 		this.qtdElementos++;
 	}
 
 	private void adicionarFinal(Object conteudo) {
-		Node novaCelula = new Node(null, conteudo);
-		this.ultimo.setProximo(novaCelula);
-		this.ultimo = novaCelula;
+		NodeDE novaCelula = new NodeDE(this.getUltimo(), null, conteudo);
+		this.getUltimo().setProximo(novaCelula);
+		this.setUltimo(novaCelula);
 		this.qtdElementos++;
 	}
 
@@ -102,8 +104,8 @@ public class ListaDinamica {
 			return;
 		}
 
-		Node aux = this.primeiro;
-		Node removido = aux;
+		NodeDE aux = this.primeiro;
+		NodeDE removido = aux;
 		int contador;
 
 		for (contador = 1; contador <= index && aux != null; contador++) {
@@ -115,13 +117,14 @@ public class ListaDinamica {
 			removerFinal();
 		} else {
 			aux.setProximo(removido.getProximo());
+			removido.getProximo().setAnterior(aux);
 			this.qtdElementos--;
 		}
 	}
 
 	private void removerFinal() {
-		Node aux = this.getPrimeiro();
-		Node removido = aux;
+		NodeDE aux = this.getPrimeiro();
+		NodeDE removido = aux;
 		while (removido.getProximo() != null) {
 			aux = removido;
 			removido = removido.getProximo();
@@ -132,22 +135,21 @@ public class ListaDinamica {
 	}
 
 	private void removerInicio() {
-		this.primeiro = this.getPrimeiro().getProximo();
+		this.setPrimeiro(this.getPrimeiro().getProximo());
+		this.getPrimeiro().setAnterior(null);
 		this.qtdElementos--;
 	}
 
 	public void eliminarPrimeiro() {
-		this.primeiro = this.primeiro.getProximo();
+		this.setPrimeiro(this.getPrimeiro().getProximo());
+		this.getPrimeiro().setAnterior(null);
 		this.qtdElementos--;
 	}
 
 	public boolean repetidos() {
-		Node aux = this.getPrimeiro();
-
+		NodeDE aux = this.getPrimeiro();
 		while (aux.getProximo() != null) {
-
-			Node aux2 = aux.getProximo();
-
+			NodeDE aux2 = aux.getProximo();
 			while (aux2 != null) {
 				if (aux.getConteudo().equals(aux2.getConteudo())) {
 					return true;
@@ -160,13 +162,14 @@ public class ListaDinamica {
 	}
 
 	public void inverterLista() {
-		Node anterior = null;
-		Node atual = this.getPrimeiro();
-		Node proxima = null;
+		NodeDE anterior = null;
+		NodeDE atual = this.getPrimeiro();
+		NodeDE proxima = null;
 		this.setUltimo(atual);
 		while (atual != null) {
 			proxima = atual.getProximo();
 			atual.setProximo(anterior);
+			atual.setAnterior(proxima);
 			anterior = atual;
 			atual = proxima;
 		}
@@ -182,10 +185,10 @@ public class ListaDinamica {
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder("");
-		Node aux = this.getPrimeiro();
+		NodeDE aux = this.getPrimeiro();
 		int i = 0;
 		while (aux != null) {
-			str.append("INDEX: " + i + " CONTEUDO: " + aux + "\n");
+			str.append("INDEX: " + i + " CONTEUDO: " + aux + " ANTERIOR: " + aux.getAnterior() + "\n");
 			i++;
 			aux = aux.getProximo();
 		}
@@ -197,7 +200,7 @@ public class ListaDinamica {
 
 	public String imprimirEsquerdaDireita() {
 		StringBuilder str = new StringBuilder("");
-		Node aux = this.getPrimeiro();
+		NodeDE aux = this.getPrimeiro();
 
 		str.append(aux);
 		aux = aux.getProximo();
@@ -220,19 +223,19 @@ public class ListaDinamica {
 		this.primeiraPosicao = primeiraPosicao;
 	}
 
-	private Node getPrimeiro() {
+	private NodeDE getPrimeiro() {
 		return primeiro;
 	}
 
-	private void setPrimeiro(Node primeiro) {
+	private void setPrimeiro(NodeDE primeiro) {
 		this.primeiro = primeiro;
 	}
 
-	private Node getUltimo() {
+	private NodeDE getUltimo() {
 		return ultimo;
 	}
 
-	private void setUltimo(Node ultimo) {
+	private void setUltimo(NodeDE ultimo) {
 		this.ultimo = ultimo;
 	}
 
