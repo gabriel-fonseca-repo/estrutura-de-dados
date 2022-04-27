@@ -178,6 +178,29 @@ public class ListaDinamicaDE {
 		return false;
 	}
 
+	public void maisRepetido() {
+		NodeDE aux = this.getPrimeiro();
+		NodeDE elementoMaisRepetido = null;
+		int qtdMaior = 0;
+		while (aux != null) {
+			int qtdRepetidaAtual = 0;
+			NodeDE aux2 = aux.getProximo();
+			while (aux2 != null) {
+				if (aux.equals(aux2)) {
+					qtdRepetidaAtual++;
+				}
+				aux2 = aux2.getProximo();
+			}
+			if (qtdRepetidaAtual > qtdMaior) {
+				qtdMaior = qtdRepetidaAtual;
+				elementoMaisRepetido = aux;
+			}
+			aux = aux.getProximo();
+		}
+		System.out.println(
+				"Elemento mais repetido: " + elementoMaisRepetido + " Quantidade de repetições: " + (qtdMaior + 1));
+	}
+
 	public void inverterLista() {
 		NodeDE anterior = null;
 		NodeDE atual = this.getPrimeiro();
@@ -256,7 +279,7 @@ public class ListaDinamicaDE {
 		this.ultimo = ultimo;
 	}
 
-	private int getQtdElementos() {
+	public int getQtdElementos() {
 		return qtdElementos;
 	}
 

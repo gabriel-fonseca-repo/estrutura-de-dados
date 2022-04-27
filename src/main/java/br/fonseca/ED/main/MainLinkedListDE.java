@@ -87,5 +87,11 @@ public class MainLinkedListDE {
 
 		lista.adicionar(23);
 
+		System.out.println("Testando metodos para determinar qual o elemento mais repetido");
+		lista = new ListaDinamicaDE();
+		lista.adicionar(7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 3, 2, 2, 2, 3, 2);
+		lista.maisRepetido();
+		System.out.println(lista.getQtdElementos());
+
 	}
 }

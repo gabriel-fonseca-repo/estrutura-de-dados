@@ -1,6 +1,6 @@
 package br.fonseca.ED.estruturas;
 
-class NodeDE {
+public class NodeDE {
 
 	private NodeDE anterior;
 	private NodeDE proximo;
@@ -41,11 +41,6 @@ class NodeDE {
 			if (other.conteudo != null)
 				return false;
 		} else if (!conteudo.equals(other.conteudo))
-			return false;
-		if (proximo == null) {
-			if (other.proximo != null)
-				return false;
-		} else if (!proximo.equals(other.proximo))
 			return false;
 		return true;
 	}
