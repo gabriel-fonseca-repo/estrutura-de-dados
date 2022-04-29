@@ -54,6 +54,45 @@ public class FilaDinamica {
 		return aux.getConteudo();
 	}
 
+	public int acharIndex(Object obj) {
+		NodeSE aux = this.getPrimeiro();
+		int cnt = 0;
+		while (aux != null) {
+			if (aux.getConteudo().equals(obj)) {
+				return cnt;
+			}
+			cnt++;
+			aux = aux.getProximo();
+		}
+		return -1;
+	}
+
+	public void remover(Object obj) {
+		int objIndex = acharIndex(obj);
+
+		if (objIndex != -1) {
+			NodeSE aux = this.getPrimeiro();
+
+			if (objIndex == 0) {
+				this.setPrimeiro(getPrimeiro().getProximo());
+				this.qtdElementos--;
+			} else if (objIndex < this.getQtdElementos() - 1) {
+				for (int i = 0; i < objIndex - 1; i++) {
+					aux = aux.getProximo();
+				}
+				aux.setProximo(aux.getProximo().getProximo());
+				this.qtdElementos--;
+			} else {
+				for (int i = 0; i < objIndex - 1; i++) {
+					aux = aux.getProximo();
+				}
+				this.setUltimo(aux);
+				getUltimo().setProximo(null);
+				this.qtdElementos--;
+			}
+		}
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder("");
@@ -68,6 +107,21 @@ public class FilaDinamica {
 		str.append("Primeiro elemento: " + this.getPrimeiro() + "\n");
 		str.append("Ultimo elemento: " + this.getUltimo() + "\n");
 		return str.toString();
+	}
+
+	public void printBeecrowd() {
+		if (!filaVazia()) {
+			NodeSE aux = this.getPrimeiro();
+			for (int i = 0; i < this.getQtdElementos() - 1; i++) {
+				System.out.print(aux.getConteudo() + " ");
+				aux = aux.getProximo();
+			}
+			System.out.println(aux.getConteudo());
+		}
+	}
+
+	public boolean filaVazia() {
+		return this.qtdElementos == 0;
 	}
 
 	/* Getters and setters */
