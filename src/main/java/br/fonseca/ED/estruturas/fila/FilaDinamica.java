@@ -46,6 +46,14 @@ public class FilaDinamica {
 		System.out.println(str.toString());
 	}
 
+	public Object achar(int pos) {
+		NodeSE aux = this.getPrimeiro();
+		for (int i = 0; i < pos; i++) {
+			aux = aux.getProximo();
+		}
+		return aux.getConteudo();
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder("");
