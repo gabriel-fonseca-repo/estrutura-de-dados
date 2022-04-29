@@ -1,4 +1,6 @@
-package br.fonseca.ED.estruturas;
+package br.fonseca.ED.estruturas.fila;
+
+import br.fonseca.ED.estruturas.NodeSE;
 
 public class FilaDinamica {
 

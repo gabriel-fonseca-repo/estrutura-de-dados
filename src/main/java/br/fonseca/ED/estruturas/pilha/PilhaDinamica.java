@@ -1,4 +1,6 @@
-package br.fonseca.ED.estruturas;
+package br.fonseca.ED.estruturas.pilha;
+
+import br.fonseca.ED.estruturas.NodeSE;
 
 public class PilhaDinamica {
 

@@ -1,4 +1,4 @@
-package br.fonseca.ED.estruturas;
+package br.fonseca.ED.estruturas.lista;
 
 import java.util.Arrays;
 

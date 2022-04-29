@@ -1,6 +1,8 @@
-package br.fonseca.ED.estruturas;
+package br.fonseca.ED.estruturas.lista;
 
-public class ListaDinamicaCircular {
+import br.fonseca.ED.estruturas.NodeSE;
+
+public class ListaDinamicaSE {
 
 	private int qtdElementos;
 
@@ -9,7 +11,7 @@ public class ListaDinamicaCircular {
 	private NodeSE primeiro;
 	private NodeSE ultimo;
 
-	public ListaDinamicaCircular() {
+	public ListaDinamicaSE() {
 		this.primeiraPosicao = true;
 		this.qtdElementos = 0;
 	}
@@ -20,15 +22,40 @@ public class ListaDinamicaCircular {
 			if (isPrimeiraPosicao()) {
 				this.setPrimeiro(novaCelula);
 				this.setUltimo(novaCelula);
-				this.getUltimo().setProximo(getPrimeiro());
 				this.setPrimeiraPosicao(false);
 			} else {
 				this.getUltimo().setProximo(novaCelula);
 				this.setUltimo(novaCelula);
-				this.getUltimo().setProximo(getPrimeiro());
 			}
 			this.qtdElementos++;
 		}
+	}
+
+	public NodeSE achar(int index) {
+		if (index <= 0) {
+			return this.getPrimeiro();
+		}
+		if (index >= this.getQtdElementos()) {
+			return this.getUltimo();
+		}
+
+		NodeSE aux = this.getPrimeiro();
+		int i = 0;
+
+		while (aux != null && i < index) {
+			aux = aux.getProximo();
+			i++;
+		}
+
+		return aux;
+	}
+
+	public Object acharPenultimo() {
+		return this.achar(this.getQtdElementos() - 2);
+	}
+
+	public Object acharUltimo() {
+		return this.achar(this.getQtdElementos() - 1);
 	}
 
 	public void adicionar(Object conteudo, int index) {
@@ -42,7 +69,7 @@ public class ListaDinamicaCircular {
 		}
 		NodeSE aux = this.getPrimeiro();
 		int contador;
-		for (contador = 1; contador < index; contador++) {
+		for (contador = 1; contador < index && aux != null; contador++) {
 			aux = aux.getProximo();
 		}
 		if (aux == null) {
@@ -57,7 +84,6 @@ public class ListaDinamicaCircular {
 	private void adicionarInicio(Object conteudo) {
 		NodeSE novaCelula = new NodeSE(primeiro, conteudo);
 		this.setPrimeiro(novaCelula);
-		this.getUltimo().setProximo(novaCelula);
 		this.qtdElementos++;
 	}
 
@@ -65,7 +91,6 @@ public class ListaDinamicaCircular {
 		NodeSE novaCelula = new NodeSE(null, conteudo);
 		this.getUltimo().setProximo(novaCelula);
 		this.setUltimo(novaCelula);
-		this.getUltimo().setProximo(getPrimeiro());
 		this.qtdElementos++;
 	}
 
@@ -99,54 +124,23 @@ public class ListaDinamicaCircular {
 	private void removerFinal() {
 		NodeSE aux = this.getPrimeiro();
 		NodeSE removido = aux;
-		int i = 0;
-		while (i != this.getQtdElementos()) {
+		while (removido.getProximo() != null) {
 			aux = removido;
 			removido = removido.getProximo();
-			i++;
 		}
-		aux.setProximo(getPrimeiro());
+		aux.setProximo(null);
 		this.setUltimo(aux);
 		this.qtdElementos--;
 	}
 
 	private void removerInicio() {
 		this.setPrimeiro(this.getPrimeiro().getProximo());
-		this.getUltimo().setProximo(getPrimeiro());
 		this.qtdElementos--;
 	}
 
 	public void eliminarPrimeiro() {
 		this.setPrimeiro(this.getPrimeiro().getProximo());
-		this.getUltimo().setProximo(getPrimeiro());
 		this.qtdElementos--;
-	}
-
-	public NodeSE achar(int index) {
-		if (index <= 0) {
-			return this.getPrimeiro();
-		}
-		if (index >= this.getQtdElementos()) {
-			return this.getUltimo();
-		}
-
-		NodeSE aux = this.getPrimeiro();
-		int i = 0;
-
-		while (aux != null && i < index) {
-			aux = aux.getProximo();
-			i++;
-		}
-
-		return aux;
-	}
-
-	public Object acharPenultimo() {
-		return this.achar(this.getQtdElementos() - 2);
-	}
-
-	public Object acharUltimo() {
-		return this.achar(this.getQtdElementos() - 1);
 	}
 
 	public boolean repetidos() {
@@ -172,13 +166,11 @@ public class ListaDinamicaCircular {
 		NodeSE atual = this.getPrimeiro();
 		NodeSE proxima = null;
 		this.setUltimo(atual);
-		int i = 0;
-		while (i < this.getQtdElementos()) {
+		while (atual != null) {
 			proxima = atual.getProximo();
 			atual.setProximo(anterior);
 			anterior = atual;
 			atual = proxima;
-			i++;
 		}
 		this.setPrimeiro(anterior);
 	}
@@ -194,7 +186,7 @@ public class ListaDinamicaCircular {
 		StringBuilder str = new StringBuilder("");
 		NodeSE aux = this.getPrimeiro();
 		int i = 0;
-		while (i != this.getQtdElementos()) {
+		while (aux != null) {
 			str.append("INDEX: " + i + " CONTEUDO: " + aux + "\n");
 			i++;
 			aux = aux.getProximo();
@@ -211,11 +203,10 @@ public class ListaDinamicaCircular {
 
 		str.append(aux);
 		aux = aux.getProximo();
-		int i = 1;
-		while (i != this.getQtdElementos()) {
+
+		while (aux != null) {
 			str.append(", " + aux);
 			aux = aux.getProximo();
-			i++;
 		}
 
 		return str.toString();

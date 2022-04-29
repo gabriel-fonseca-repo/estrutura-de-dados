@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.PilhaDinamica;
+import br.fonseca.ED.estruturas.pilha.PilhaDinamica;
 
 public class MainPilhaDinamica {
 

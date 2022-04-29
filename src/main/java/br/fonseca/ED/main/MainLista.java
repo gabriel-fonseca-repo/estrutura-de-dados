@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.Lista;
+import br.fonseca.ED.estruturas.lista.Lista;
 
 public class MainLista {
 	public static void main(String[] args) {

@@ -1,4 +1,6 @@
-package br.fonseca.ED.estruturas;
+package br.fonseca.ED.estruturas.lista;
+
+import br.fonseca.ED.estruturas.NodeDE;
 
 public class ListaDinamicaDE {
 

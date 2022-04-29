@@ -1,6 +1,6 @@
 package br.fonseca.ED.estruturas;
 
-class NodeSE {
+public class NodeSE {
 
 	private NodeSE proximo;
 	private Object conteudo;

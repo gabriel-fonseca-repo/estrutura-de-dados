@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.FilaDinamica;
+import br.fonseca.ED.estruturas.fila.FilaDinamica;
 
 public class MainFilaDinamica {
 	public static void main(String[] args) {

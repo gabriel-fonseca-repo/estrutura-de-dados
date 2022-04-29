@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.ListaDinamicaCircular;
+import br.fonseca.ED.estruturas.lista.ListaDinamicaCircular;
 
 public class MainLinkedListCircular {
 	public static void main(String[] args) {

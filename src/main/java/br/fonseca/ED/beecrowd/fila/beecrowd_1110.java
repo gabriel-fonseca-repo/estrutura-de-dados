@@ -3,7 +3,7 @@ package br.fonseca.ED.beecrowd.fila;
 import java.io.File;
 import java.util.Scanner;
 
-import br.fonseca.ED.estruturas.FilaDinamica;
+import br.fonseca.ED.estruturas.fila.FilaDinamica;
 
 public class beecrowd_1110 {
 	public static void main(String[] args) throws Exception {

@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.Fila;
+import br.fonseca.ED.estruturas.fila.Fila;
 import br.fonseca.ED.modelo.Aluno;
 
 public class MainFila {

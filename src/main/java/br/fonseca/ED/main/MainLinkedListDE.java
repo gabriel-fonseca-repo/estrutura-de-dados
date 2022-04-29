@@ -1,6 +1,6 @@
 package br.fonseca.ED.main;
 
-import br.fonseca.ED.estruturas.ListaDinamicaDE;
+import br.fonseca.ED.estruturas.lista.ListaDinamicaDE;
 
 public class MainLinkedListDE {
 	public static void main(String[] args) {
