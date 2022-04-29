@@ -6,12 +6,10 @@ public class MainFilaDinamica {
 	public static void main(String[] args) {
 		FilaDinamica fila = new FilaDinamica();
 
-		fila.enqueue(1, 2, 3, 4, 5, 6, 7, 8, 9);
-
 		System.out.println(fila);
 		int i = 0;
 		while (i < 4) {
-			fila.dequeue();
+			fila.desenfileirar();
 			i++;
 		}
 
