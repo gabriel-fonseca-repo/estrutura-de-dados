@@ -2,31 +2,27 @@ package br.fonseca.ED.estruturas.pilha;
 
 import br.fonseca.ED.estruturas.NodeSE;
 
-public class PilhaDinamica {
+public class PilhaDinamicaDE {
 
 	private int qtdElementos;
-
-	private boolean primeiraPosicao;
 
 	private NodeSE primeiro;
 	private NodeSE ultimo;
 
-	public PilhaDinamica() {
-		this.primeiraPosicao = true;
+	public PilhaDinamicaDE() {
 		this.qtdElementos = 0;
 	}
 
-	public Object peek() {
+	public Object topo() {
 		return this.getUltimo().getConteudo();
 	}
 
-	public void push(Object... conteudo) {
+	public void empilhar(Object... conteudo) {
 		for (Object obj : conteudo) {
 			NodeSE novaCelula = new NodeSE(null, obj);
-			if (isPrimeiraPosicao()) {
+			if (this.getPrimeiro() == null) {
 				this.setPrimeiro(novaCelula);
 				this.setUltimo(novaCelula);
-				this.setPrimeiraPosicao(false);
 			} else {
 				this.getUltimo().setProximo(novaCelula);
 				this.setUltimo(novaCelula);
@@ -35,7 +31,7 @@ public class PilhaDinamica {
 		}
 	}
 
-	public void pop() {
+	public void desempilhar() {
 		NodeSE aux = this.getPrimeiro();
 		NodeSE removido = aux;
 		while (removido.getProximo() != null) {
@@ -79,6 +75,11 @@ public class PilhaDinamica {
 		this.setPrimeiro(anterior);
 	}
 
+	public void zerar() {
+		this.setPrimeiro(null);
+		this.setUltimo(null);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder str = new StringBuilder("");
@@ -96,14 +97,6 @@ public class PilhaDinamica {
 	}
 
 	/* Getters and setters */
-
-	private boolean isPrimeiraPosicao() {
-		return primeiraPosicao;
-	}
-
-	private void setPrimeiraPosicao(boolean primeiraPosicao) {
-		this.primeiraPosicao = primeiraPosicao;
-	}
 
 	private NodeSE getPrimeiro() {
 		return primeiro;
@@ -124,4 +117,9 @@ public class PilhaDinamica {
 	private int getQtdElementos() {
 		return qtdElementos;
 	}
+
+	public int tamanho() {
+		return this.getQtdElementos();
+	}
+
 }

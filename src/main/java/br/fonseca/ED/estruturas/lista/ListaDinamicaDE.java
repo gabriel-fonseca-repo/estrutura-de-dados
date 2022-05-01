@@ -285,4 +285,8 @@ public class ListaDinamicaDE {
 		return qtdElementos;
 	}
 
+	public void removerRepetido() {
+
+	}
+
 }
